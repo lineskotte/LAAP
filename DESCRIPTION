@@ -4,7 +4,7 @@ Version: 0.0.1
 Authors@R: person("Line", "Skotte", email = "laap@lineskotte.dk", role = c("aut", "cre"))
 Description: LAAP is an R package for longitudinal analysis of densely sampled high-troughput data, such as RNA-sequencing transcriptomics or mass spectrometry metabolomics. The development of this software was supported by the Carlsberg Foundation.
 Depends: R (>= 3.4.2)
-Imports: fda, lmerTest, lme4 
+Imports: splines, lmerTest, lme4 
 License: MIT
 Encoding: UTF-8
 LazyData: true

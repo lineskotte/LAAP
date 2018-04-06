@@ -17,12 +17,16 @@ After installation, the package can be loaded into R.
 
 # Using laap
 
-The main function in the **laap** package is `infer_lap()`.
+The main function in the **laap** package is `laap()`.
 
 ```
-p <- prop.test(x = 500, n = 1008)
-mansplain(p)
-# That's great that you were able to do a hypothesis test. You got a p-value of 0.8255. That means it's not significant at alpha = .05, but that's OK. The important thing is that you tried.
+# Simulate test data
+sim <- sim_test_data()
+i <- sim[["meta"]]$ind
+t <- sim[["meta"]]$t
+L <- sim[["analytes"]]
+# Fit and return models, pvalues and coefficients
+results <- laap(i = i, t = t, L = L, k = 8)
 ```
 
 # Bug reports

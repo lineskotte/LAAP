@@ -12,18 +12,19 @@
 #' @export
 laap <- function(i, t, L, k){
 	# Ordering according to gestational age for assignment of knots for the spline base
-	i <- i[order(t)]
-	t <- t[order(t)]
-
+	reorder <- order(t)
+	i <- i[reorder]
+	t <- t[reorder]
+	L <- L[reorder,]
 	# Getting design matrix for spline basis
 	kts <- seq(min(t), max(t), length = k+2)[2:(k+1)]
-	A <- fda::bs(t, knots = kts, intercept = FALSE) # Note: lmer includes intercept
+	A <- splines::bs(t, knots = kts, intercept = FALSE) # Note: lmer includes intercept
 
 	nanalyte <- dim(L)[2]
 	analytes <- colnames(L)
 
 	system.time(
-		fits <- mclapply(X = 1:nanalyte, FUN = function(j){fit_spline(i=i, t=t, f=L[,j], A=A)},
+		fits <- parallel::mclapply(X = 1:nanalyte, FUN = function(j){fit_spline(i=i, t=t, f=L[,j], A=A)},
 										 mc.cores = 9, mc.set.seed = 1, mc.cleanup = TRUE)
 	)
 
